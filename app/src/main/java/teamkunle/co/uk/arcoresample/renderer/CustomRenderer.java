@@ -8,6 +8,10 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class CustomRenderer implements GLSurfaceView.Renderer{
 
+    public CustomRenderer(){
+
+    }
+
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
 
