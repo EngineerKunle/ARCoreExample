@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "teamkunle.co.uk.arcoresample"
         minSdkVersion 21
@@ -30,4 +31,8 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile files('libs/obj-0.2.1.jar')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
