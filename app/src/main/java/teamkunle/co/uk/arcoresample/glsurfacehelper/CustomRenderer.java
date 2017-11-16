@@ -1,4 +1,4 @@
-package teamkunle.co.uk.arcoresample.renderer;
+package teamkunle.co.uk.arcoresample.glsurfacehelper;
 
 
 import android.opengl.GLSurfaceView;
