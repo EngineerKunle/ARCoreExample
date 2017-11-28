@@ -1,6 +1,7 @@
 package teamkunle.co.uk.arcoresample.rendering
 
 import android.content.Context
+import android.opengl.GLES20
 
 class BackgroundRenderer {
     companion object {
@@ -8,9 +9,9 @@ class BackgroundRenderer {
         fun loadGlShader(tag : String, context : Context,type : Int ,resId : Int) : Int {
 
             val code  = readRawTextFile(context, resId)
+            var shader = GLES20.glCreateShader(type);
 
-
-            return 1
+            return shader
         }
 
         @JvmStatic
@@ -18,4 +19,6 @@ class BackgroundRenderer {
             return ""
         }
     }
+
+    //TODO : finish this class
 }
