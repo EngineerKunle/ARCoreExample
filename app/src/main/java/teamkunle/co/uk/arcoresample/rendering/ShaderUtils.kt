@@ -41,9 +41,9 @@ class ShaderUtils {
         fun checkGLError(tag : String, label : String) {
             var error = GLES20.glGetError()
 
-            while (error != GLES20.GL_NO_ERROR) {
-                Log.e(tag, "$label : glError $error")
-                throw RuntimeException("$label : glError $error")
+            if (error != GLES20.GL_NO_ERROR) {
+                Log.e(tag, "$label : gl error $error")
+                throw RuntimeException("$label : gl error $error")
             }
         }
 
@@ -52,17 +52,21 @@ class ShaderUtils {
         fun readRawTextFile(context: Context, resId : Int) : String {
             var inputStream : InputStream = context.resources.openRawResource(resId)
             try {
-                val reader : BufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val sb   : StringBuilder
-                val line : StringBuilder
+                var reader = BufferedReader(InputStreamReader(inputStream))
+                var sb    = StringBuilder()
+                var line : String? = null
 
+                while({ line = reader.readLine(); line }() != null) {
+                    sb.append(line).append("\n")
+                }
 
                 reader.close()
+                return sb.toString()
 
             } catch (e : IOException) {
-
+                e.printStackTrace()
             }
-            return ""
+            return "ran into error"
         }
     }
 
