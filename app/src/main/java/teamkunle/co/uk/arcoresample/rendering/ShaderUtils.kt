@@ -56,7 +56,7 @@ class ShaderUtils {
                 var sb    = StringBuilder()
                 var line : String? = null
 
-                while({ line = reader.readLine(); line }() != null) {
+                while( { line = reader.readLine(); line }() != null) {
                     sb.append(line).append("\n")
                 }
 
