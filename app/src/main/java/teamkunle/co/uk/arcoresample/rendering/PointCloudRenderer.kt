@@ -3,6 +3,7 @@ package teamkunle.co.uk.arcoresample.rendering
 import android.content.Context
 import android.opengl.GLES20
 import com.google.ar.core.PointCloud
+import teamkunle.co.uk.arcoresample.R
 
 
 class PointCloudRenderer {
@@ -22,6 +23,7 @@ class PointCloudRenderer {
     private var positionAttribute : Int = 0
     private var modelViewProjectionUniform : Int = 0
     private var colorUniform : Int = 0
+    private var pointSizeUniform : Int = 0
 
     private var numPoints : Int = 0
 
@@ -35,7 +37,35 @@ class PointCloudRenderer {
         vbo = buffers[0]
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo)
 
-//        vboSize
+        vboSize = INITIAL_BUFFER_POINTS * BYTES_PER_POINT
+        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, vboSize, null, GLES20.GL_DYNAMIC_DRAW)
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0)
+
+        ShaderUtils.checkGLError(TAG, "buffer alloc")
+
+        var vertexShader : Int = ShaderUtils.loadGlShader(TAG, context,
+                GLES20.GL_VERTEX_SHADER,
+                R.raw.point_cloud_vertex)
+
+        var passThroughShader : Int = ShaderUtils.loadGlShader(TAG, context,
+                GLES20.GL_FRAGMENT_SHADER,
+                R.raw.passthrough_fragment)
+
+        programmeName = GLES20.glCreateProgram()
+        GLES20.glAttachShader(programmeName, vertexShader)
+        GLES20.glAttachShader(programmeName, passThroughShader)
+        GLES20.glLinkProgram(programmeName)
+        GLES20.glUseProgram(programmeName)
+
+        ShaderUtils.checkGLError(TAG, "program")
+
+        positionAttribute          = GLES20.glGetAttribLocation(programmeName, "a_position")
+        colorUniform               = GLES20.glGetUniformLocation(programmeName, "u_color")
+        modelViewProjectionUniform = GLES20.glGetUniformLocation(programmeName, "u_ModelViewProjection")
+        pointSizeUniform           = GLES20.glGetUniformLocation(programmeName, "u_PointSize")
+
+        ShaderUtils.checkGLError(TAG, "program params")
+
     }
 
 
