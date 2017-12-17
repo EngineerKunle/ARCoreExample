@@ -2,7 +2,9 @@ package teamkunle.co.uk.arcoresample.rendering
 
 import android.content.Context
 import android.opengl.GLES20
+import android.opengl.Matrix
 import com.google.ar.core.PointCloud
+import com.google.ar.core.Pose
 import teamkunle.co.uk.arcoresample.R
 
 
@@ -68,5 +70,59 @@ class PointCloudRenderer {
 
     }
 
+    /*
+    * Updates the OpenGL buffer contents to the provided point. Repeated calls with same point cloud
+    * will be ignored
+    * */
+    fun update(cloud : PointCloud) {
+        if (lastPointCloud == cloud) return
 
+        ShaderUtils.checkGLError(TAG, "before update")
+
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo)
+        lastPointCloud = cloud
+
+        numPoints = lastPointCloud.points.remaining() / FLOATS_PER_POINT
+
+        if (numPoints * BYTES_PER_POINT > vboSize) {
+            while (numPoints * BYTES_PER_POINT > vboSize) {
+                vboSize *= 2
+            }
+            GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, vboSize, null, GLES20.GL_DYNAMIC_DRAW)
+        }
+        GLES20.glBufferSubData(GLES20.GL_ARRAY_BUFFER, 0, numPoints * BYTES_PER_POINT,
+                lastPointCloud.points)
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0)
+        ShaderUtils.checkGLError(TAG, "after update")
+    }
+
+    /**
+     * Renders the point cloud
+     * */
+    fun draw(pose : Pose, cameraView : FloatArray, cameraPerspective : FloatArray) {
+        var modelmatrix = FloatArray(16)
+        pose.toMatrix(modelmatrix, 0)
+
+        var modelView = FloatArray(16)
+        var modelViewProjection = FloatArray(16)
+        Matrix.multiplyMM(modelView, 0, cameraView, 0, modelmatrix, 0)
+        Matrix.multiplyMM(modelViewProjection, 0, cameraPerspective, 0, modelView, 0)
+
+        ShaderUtils.checkGLError(TAG, "before draw")
+
+        GLES20.glUseProgram(programmeName)
+        GLES20.glEnableVertexAttribArray(positionAttribute)
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, vbo)
+        GLES20.glVertexAttribPointer(positionAttribute, 4, GLES20.GL_FLOAT, false, BYTES_PER_POINT, 0)
+
+        GLES20.glUniform4f(colorUniform, 31.0f / 255.0f, 188.0f / 255.0f, 210.0f / 255.0f, 1.0f)
+        GLES20.glUniformMatrix4fv(modelViewProjectionUniform, 1, false, modelViewProjection, 0)
+        GLES20.glUniform1f(pointSizeUniform, 5.0f)
+
+        GLES20.glDrawArrays(GLES20.GL_POINTS, 0, numPoints)
+        GLES20.glDisableVertexAttribArray(positionAttribute)
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0)
+
+        ShaderUtils.checkGLError(TAG, "Draw")
+    }
 }
