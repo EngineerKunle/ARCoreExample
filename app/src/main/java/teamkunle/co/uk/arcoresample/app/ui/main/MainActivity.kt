@@ -5,7 +5,7 @@ import android.util.Log
 import teamkunle.co.uk.arcoresample.app.ui.base.BaseActivity
 import teamkunle.co.uk.arcoresample.app.ui.base.BaseView
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), MainView {
 
     companion object {
         private const val TAG = "MainActivity"
@@ -20,4 +20,15 @@ class MainActivity : BaseActivity() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun initview() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun displayToast() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getLayOutResourcedId(): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
