@@ -3,32 +3,33 @@ package teamkunle.co.uk.arcoresample.app.ui.main
 import android.os.Bundle
 import android.util.Log
 import teamkunle.co.uk.arcoresample.app.ui.base.BaseActivity
-import teamkunle.co.uk.arcoresample.app.ui.base.BaseView
 
 class MainActivity : BaseActivity(), MainView {
 
-    companion object {
-        private const val TAG = "MainActivity"
-    }
+    private val TAG = MainActivity::class.simpleName
+
+    private var presenter = MainPresenterImpl<MainView>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter.attachView(this)
         Log.d(TAG, "On create called")
     }
 
-    override fun getBaseView(): BaseView {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onDestroy() {
+        presenter.detachView()
+        super.onDestroy()
     }
 
     override fun initview() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun displayToast() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun getLayOutResourcedId(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return -1
     }
 }

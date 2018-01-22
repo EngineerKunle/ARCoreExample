@@ -1,8 +1,8 @@
 package teamkunle.co.uk.arcoresample.app.ui.base
 
-open class BasePresenterImpl <V : BaseView> : BasePresenter<V>{
+open class BasePresenterImpl < V : BaseView > : BasePresenter<V>{
 
-    protected var view  : V? = null
+    var view  : V? = null
 
     override fun attachView(view: V) {
         this.view = view

@@ -1,8 +1,15 @@
 package teamkunle.co.uk.arcoresample.app.ui.main
 
-class MainPresenterImpl {
+class MainPresenterImpl<in V> : MainPresenter<V> {
 
-    fun presenterMethodDebug(name : String) : String {
-        return  name
+    override fun attachView(view: V) {
+    }
+
+    override fun detachView() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setTextForToast() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
