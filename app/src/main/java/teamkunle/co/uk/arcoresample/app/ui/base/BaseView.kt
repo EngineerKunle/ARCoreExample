@@ -4,7 +4,7 @@ import android.support.annotation.LayoutRes
 
 interface BaseView {
 
-    fun initview()
+    fun initView()
 
     @LayoutRes
     fun getLayOutResourcedId() : Int

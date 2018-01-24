@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ARCoreSample</string>
+    <string name="main_button">Launch AR</string>
 </resources>

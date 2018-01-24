@@ -5,11 +5,10 @@ import android.support.v7.app.AppCompatActivity
 
 abstract class BaseActivity : AppCompatActivity(), BaseView{
 
-    companion object {
-          val TAG = BaseActivity::class.simpleName
-    }
+    private val TAG = BaseActivity::class.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(getLayOutResourcedId())
     }
 }
