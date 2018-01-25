@@ -7,10 +7,8 @@ class MainPresenterImpl<in V> : MainPresenter<V> {
     }
 
     override fun detachView() {
-        //TODO : set view as null.. possibly remove
     }
 
     override fun setTextForToast() {
-
     }
 }
