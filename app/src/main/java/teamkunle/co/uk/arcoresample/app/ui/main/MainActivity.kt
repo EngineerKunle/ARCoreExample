@@ -1,7 +1,10 @@
 package teamkunle.co.uk.arcoresample.app.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
 import teamkunle.co.uk.arcoresample.R
+import teamkunle.co.uk.arcoresample.app.ui.arview.ARCoreActivity
 import teamkunle.co.uk.arcoresample.app.ui.base.BaseActivity
 
 class MainActivity : BaseActivity(), MainView {
@@ -21,7 +24,10 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     override fun initView() {
-
+        launch_button_main.setOnClickListener {
+            val intent = Intent(this, ARCoreActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun displayToast() {

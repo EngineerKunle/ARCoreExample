@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
@@ -27,7 +28,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile(name: 'arcore_client', ext:'aar')
+    compile(name: 'arcore_client', ext: 'aar')
 
     testCompile 'junit:junit:4.12'
     compile files('libs/obj-0.2.1.jar')
