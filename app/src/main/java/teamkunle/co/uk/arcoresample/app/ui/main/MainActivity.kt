@@ -18,7 +18,7 @@ class MainActivity : BaseActivity(), MainView {
         presenter.attachView(this)
     }
 
-    override fun onDestroy() {
+    override fun onDestroy  () {
         presenter.detachView()
         super.onDestroy()
     }

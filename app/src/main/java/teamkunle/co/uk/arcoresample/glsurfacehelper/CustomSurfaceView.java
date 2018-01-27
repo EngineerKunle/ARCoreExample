@@ -3,10 +3,13 @@ package teamkunle.co.uk.arcoresample.glsurfacehelper;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.MotionEvent;
 
-public class CustomSurfaceView extends GLSurfaceView {
+public class CustomSurfaceView extends GLSurfaceView  {
 
     private final int EGL_CLIENT = 0;
+    private final String TAG = CustomSurfaceView.class.getSimpleName();
 
     public CustomSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -18,10 +21,12 @@ public class CustomSurfaceView extends GLSurfaceView {
         CustomRenderer renderer = new CustomRenderer();
         setEGLContextClientVersion(2);
         setRenderer(renderer);
+        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
 
-    public void debugCaller() {
-        System.out.println("it has been called");
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.d(TAG, "Custom view was touched");
+        return super.onTouchEvent(event);
     }
-
 }
