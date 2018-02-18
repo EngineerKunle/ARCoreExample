@@ -350,7 +350,7 @@ public class PlaneRenderer {
             plane.getCenterPose().toMatrix(planeMatrix, 0);
 
             updatePlaneParameters(planeMatrix, plane.getExtentX(),
-                    plane.getExtentZ(), plane.getPlanePolygon());
+                    plane.getExtentZ(), plane.getPolygon());
 
             // Get plane index. Keep a map to assign same indices to same planes.
             Integer planeIndex = mPlaneIndexMap.get(plane);
